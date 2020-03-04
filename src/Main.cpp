@@ -8,6 +8,9 @@
 #include "soloud/include/soloud_wav.h"
 
 SoLoud::Soloud* g_soloud;
+Status* g_status;
+TCOD_key_t g_key;
+TCODRandom* g_random;
 
 int main(int argc, char** argv)
 {
@@ -19,20 +22,17 @@ int main(int argc, char** argv)
 	g_soloud = new SoLoud::Soloud;
 	g_soloud->init();
 
-	Status status;
-	FlightScene flight_scene(&status);
+	g_status = new Status();
+	g_random = new TCODRandom();
+
+	FlightScene flight_scene = FlightScene();
 
 	TCODSystem::setFps(60);
 
 	while (!TCODConsole::isWindowClosed()) 
 	{
-		TCOD_key_t key;
 		TCOD_mouse_t mouse;
-		TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE, &key, &mouse);
-		if (key.vk != TCODK_NONE)
-		{
-			flight_scene.turn(key);
-		}
+		TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE, &g_key, &mouse);
 
 		flight_scene.update(TCODSystem::getLastFrameLength());
 

@@ -111,4 +111,76 @@ public:
 
 		return false;
 	}
+
+	static void draw_rectangle(TCODConsole* target, int x0, int y0, int w, int h, bool dline = false)
+	{
+		int hline = 196;
+		int vline = 179;
+		int ulc = 218;
+		int urc = 191;
+		int blc = 192;
+		int brc = 217;
+
+		if (dline)
+		{
+			hline = 205;
+			vline = 186;
+			ulc = 201;
+			urc = 187;
+			blc = 200;
+			brc = 188;
+		}
+
+		for (int x = x0; x < x0 + w; x++)
+		{
+			target->putChar(x, y0, hline);
+			target->putChar(x, y0 + h, hline);
+		}
+
+		for (int y = y0; y < y0 + h; y++)
+		{
+			target->putChar(x0, y, vline);
+			target->putChar(x0 + w, y, vline);
+		}
+
+		// Corners
+
+		target->putChar(x0, y0, ulc);
+		target->putChar(x0 + w, y0, urc);
+		target->putChar(x0, y0 + h, blc);
+		target->putChar(x0 + w, y0 + h, brc);
+	}
+
+	// Single letter hold button
+	static bool draw_button(TCODConsole* target, int x0, int y0, int rx, int ry, int ch)
+	{
+		TCOD_mouse_t pos = TCODMouse::getStatus();
+
+		int w = 2;
+		int h = 2;
+
+		bool clicked = false;
+		if (pos.cx - rx >= x0 && pos.cx - rx <= x0 + w && pos.cy - ry >= y0 && pos.cy - ry <= y0 + h && pos.lbutton)
+		{
+			clicked = true;
+		}
+
+		draw_rectangle(target, x0, y0, w, h, false);
+
+		if (clicked)
+		{
+			target->setDefaultForeground(TCODColor::lightGreen);
+		}
+		else
+		{
+			target->setDefaultForeground(TCODColor::white);
+		}
+
+		target->setChar(x0 + w / 2, y0 + h / 2, ch);
+
+	
+		target->setDefaultForeground(TCODColor::white);
+
+		return clicked;
+	}
 };

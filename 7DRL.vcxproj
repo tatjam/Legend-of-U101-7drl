@@ -126,7 +126,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\flight\Sonar.cpp" />
+    <ClCompile Include="src\flight\Gamemaster.cpp" />
+    <ClCompile Include="src\vehicle\workbench\Battery.cpp" />
+    <ClCompile Include="src\vehicle\workbench\Machines.cpp" />
+    <ClCompile Include="src\vehicle\workbench\Periscope.cpp" />
+    <ClCompile Include="src\vehicle\workbench\Maneouver.cpp" />
+    <ClCompile Include="src\vehicle\workbench\Listening.cpp" />
+    <ClCompile Include="src\vehicle\Crewmember.cpp" />
+    <ClCompile Include="src\vehicle\workbench\Radio.cpp" />
+    <ClCompile Include="src\vehicle\workbench\Sonar.cpp" />
     <ClCompile Include="src\flight\FlightMap.cpp" />
     <ClCompile Include="src\flight\FlightScene.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -191,6 +199,7 @@
     <ClCompile Include="src\soloud\src\filter\soloud_robotizefilter.cpp" />
     <ClCompile Include="src\soloud\src\filter\soloud_waveshaperfilter.cpp" />
     <ClCompile Include="src\Status.cpp" />
+    <ClCompile Include="src\vehicle\Vehicle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libtcod.dll" />
@@ -199,8 +208,18 @@
     <None Include="src\soloud\src\c_api\soloud.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\flight\Gamemaster.h" />
+    <ClInclude Include="src\vehicle\workbench\Battery.h" />
+    <ClInclude Include="src\vehicle\workbench\Machines.h" />
+    <ClInclude Include="src\vehicle\workbench\Periscope.h" />
+    <ClInclude Include="src\vehicle\workbench\Maneouver.h" />
+    <ClInclude Include="src\vehicle\workbench\Listening.h" />
+    <ClInclude Include="src\Speech.h" />
+    <ClInclude Include="src\vehicle\Crewmember.h" />
+    <ClInclude Include="src\Date.h" />
+    <ClInclude Include="src\vehicle\workbench\Radio.h" />
     <ClInclude Include="src\Drawing.h" />
-    <ClInclude Include="src\flight\Sonar.h" />
+    <ClInclude Include="src\vehicle\workbench\Sonar.h" />
     <ClInclude Include="src\flight\FlightMap.h" />
     <ClInclude Include="src\defines.h" />
     <ClInclude Include="src\flight\FlightScene.h" />
@@ -216,6 +235,8 @@
     <ClInclude Include="src\soloud\src\audiosource\wav\dr_wav.h" />
     <ClInclude Include="src\soloud\src\audiosource\wav\stb_vorbis.h" />
     <ClInclude Include="src\Status.h" />
+    <ClInclude Include="src\vehicle\Vehicle.h" />
+    <ClInclude Include="src\vehicle\workbench\Workbench.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
