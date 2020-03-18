@@ -14,7 +14,7 @@ bool Sonar::update(float dt)
 
 		if (is_open())
 		{
-			draw_world(get_vehicle()->get_tile().first, get_vehicle()->get_tile().second, *get_vehicle()->in_map);
+			//draw_world(get_vehicle()->get_tile().first, get_vehicle()->get_tile().second, *get_vehicle()->in_map);
 		}
 	}
 
@@ -27,6 +27,8 @@ bool Sonar::update(float dt)
 	{
 		sonar_radius = 0.0f;
 		g_soloud->play(ping);
+
+		draw_world((int)floor(get_vehicle()->x), (int)floor(get_vehicle()->y), *get_vehicle()->in_map);
 	}
 
 
@@ -37,8 +39,6 @@ bool Sonar::update(float dt)
 		{
 			return true;
 		}
-
-		draw_world((int)floor(get_vehicle()->x), (int)floor(get_vehicle()->y), *get_vehicle()->in_map);
 	}
 
 	return false;
@@ -46,6 +46,11 @@ bool Sonar::update(float dt)
 
 void Sonar::draw(int rx, int ry)
 {
+	if (!sonar_active)
+	{
+		draw_world((int)floor(get_vehicle()->x), (int)floor(get_vehicle()->y), *get_vehicle()->in_map);
+	}
+
 	// Clear lower area
 	console.rect(0, 49, 49, 60, true);
 
@@ -151,8 +156,8 @@ void Sonar::draw(int rx, int ry)
 		if (sonar_active)
 		{
 			g_soloud->play(ping);
+			draw_world((int)floor(get_vehicle()->x), (int)floor(get_vehicle()->y), *get_vehicle()->in_map);
 		}
-		draw_world(lpx, lpy, *last_map);
 	}
 
 	console.setDefaultForeground(TCODColor::white);
@@ -213,7 +218,7 @@ void Sonar::draw_world(int px, int py, FlightMap& map)
 	lpy = py;
 	last_map = &map;
 	// Run a visibility algorithm and draw
-	map.vmap.computeFov(px, py, sonar_active ? 24 : 1, true, FOV_BASIC);
+	map.vmap.computeFov(px, py, sonar_active ? 24 : 1, true, FOV_DIAMOND);
 
 	for (int x = -24; x < 24; x++)
 	{
@@ -275,6 +280,63 @@ void Sonar::draw_world(int px, int py, FlightMap& map)
 				//radar.setChar(sx, sy, ' ');
 			}
 
+		}
+	}
+
+	// Draw entities
+	for (int i = 0; i < map.entities.size(); i++)
+	{
+		if (map.entities[i]->is_alive())
+		{
+			auto type = map.entities[i]->get_type();
+			if (type != E_BASE && type != E_STATION && type != E_NEST)
+			{
+				int ch = '*';
+
+				if (type == E_SUBMARINE)
+				{
+					ch = '!';
+				}
+				else if (type == E_TORPEDO)
+				{
+					ch = '+';
+				}
+
+
+				if (map.entities[i]->is_identified())
+				{
+					ch = map.entities[i]->get_symbol();
+				}
+
+				auto fpos = map.entities[i]->get_position();
+				int x = (int)floor(fpos.first);
+				int y = (int)floor(fpos.second);
+
+				int mx = x - px;
+				int my = y - py;
+
+				int sx = mx + 24;
+				int sy = my + 24;
+
+				bool seen = true;
+
+
+				if (!map.vmap.isInFov(x, y))
+				{
+					seen = false;
+				}
+
+				if (seen)
+				{
+					console.setChar(sx, sy, ch);
+					map.entities[i]->set_visible(true);
+				}
+				else
+				{
+					map.entities[i]->set_visible(false);
+				}
+
+			}
 		}
 	}
 }

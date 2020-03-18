@@ -5,7 +5,7 @@
 #include <array>
 #include <vector>
 #include <stack>
-#include "../Crewmember.h"
+#include "../FlightCrew.h"
 
 class Vehicle;
 
@@ -18,7 +18,7 @@ enum Window
 	PERISCOPE,
 	MACHINES,
 	BATTERY,
-	LISTENING
+	TARGETING,
 };
 
 class Workbench
@@ -34,7 +34,7 @@ private:
 
 public:
 	
-	std::vector<Crewmember>* crew;
+	std::vector<FlightCrew>* crew;
 
 
 	// Chair x and y
@@ -79,9 +79,9 @@ public:
 
 	virtual std::string get_name() = 0;
 
-	Crewmember* get_crewman()
+	FlightCrew* get_crewman()
 	{
-		for (Crewmember& cm : *crew)
+		for (FlightCrew& cm : *crew)
 		{
 			if (cm.can_work_in(this) && cm.x == cx && cm.y == cy)
 			{
@@ -94,7 +94,7 @@ public:
 
 	bool is_crewed()
 	{
-		for (Crewmember& cm : *crew)
+		for (FlightCrew& cm : *crew)
 		{
 			if (cm.can_work_in(this) && cm.x == cx && cm.y == cy)
 			{

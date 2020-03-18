@@ -1,6 +1,6 @@
 #include "Periscope.h"
 #include "../Vehicle.h"
-
+#include "../../flight/FlightScene.h"
 
 Periscope::Periscope() : console(49, 49)
 {
@@ -36,7 +36,7 @@ void Periscope::draw(int rx, int ry)
 
 	TCODMap view_map = TCODMap(w, h);
 
-	std::vector<Entity>& entities = get_vehicle()->in_map->get_entities();
+	std::vector<FlightEntity*>& entities = get_vehicle()->in_map->get_entities();
 
 	float vx = get_vehicle()->x;
 	float vy = get_vehicle()->y;
@@ -81,30 +81,18 @@ void Periscope::draw(int rx, int ry)
 
 	// Draw entities and features
 	for (int i = 0; i < entities.size(); i++) 
-	{
-
-
-		float exf = entities[i].x - vx;
-		float eyf = entities[i].y - vy;
-
-		int ex = (int)floor(exf * (float)w * 0.5f + 24.0f);
-		int ey = (int)floor(eyf * (float)h * 0.5f + 24.0f);
-
-		if (ex >= 0 && ex < w && ey >= 0 && ey < h)
+	{	
+		if (entities[i]->is_alive())
 		{
-			switch (entities[i].type)
+			float exf = entities[i]->get_position().first - vx;
+			float eyf = entities[i]->get_position().second - vy;
+
+			int ex = (int)floor(exf * (float)w * 0.5f + 24.0f);
+			int ey = (int)floor(eyf * (float)h * 0.5f + 24.0f);
+
+			if (ex >= 0 && ex < w && ey >= 0 && ey < h)
 			{
-			case E_BASE:
-				console.setChar(ex, ey, 127);
-				break;
-			case E_NEST:
-				console.setChar(ex, ey, 15);
-				break;
-			case E_STATION:
-				console.setChar(ex, ey, 234);
-				break;
-			default:
-				break;
+				console.setChar(ex, ey, entities[i]->get_symbol());
 			}
 		}
 	}
@@ -120,7 +108,8 @@ void Periscope::draw(int rx, int ry)
 			yf = (yf - 0.5f) * 2.0f;
 
 			float dist = sqrt(xf * xf + yf * yf) * 7.0f;
-			float bright = 1.0f / (dist * dist);
+			float bright = 3.0f / (dist * dist);
+
 
 			TCODColor lit = TCODColor(207.0f, 1.0f / bright, bright);
 
@@ -195,6 +184,48 @@ void Periscope::draw(int rx, int ry)
 			// N
 			console.setCharForeground(24, 23, TCODColor::lightGrey);
 			console.setChar(24, 23, 179);
+		}
+	}
+
+	// Draw explosions
+	for (int i = 0; i < get_vehicle()->scene->expl_effects.size(); i++)
+	{
+		ExplosionEffect fx = get_vehicle()->scene->expl_effects[i];
+	
+
+		for (int x = 0; x < w; x++)
+		{
+			for (int y = 0; y < h; y++)
+			{
+				// xf, yf (-1, 1)
+				float xf = (float)x / (float)w;
+				float yf = (float)y / (float)h;
+				xf = (xf - 0.5f) * 2.0f;
+				yf = (yf - 0.5f) * 2.0f;
+
+				float tx = vx + xf;
+				float ty = vy + yf;
+
+				float dx = tx - fx.x;
+				float dy = ty - fx.y;
+
+				float dist = sqrt(dx * dx + dy * dy);
+
+				if (dist <= fx.t * 2.0f)
+				{
+					int n = min(fx.t * 255.0f, 255);
+					console.setCharForeground(x, y, TCODColor(n, n, n));
+					if (dist <= fx.t)
+					{
+						console.setChar(x, y, 178);
+					}
+					else
+					{
+						console.setChar(x, y, '.');
+					}
+					
+				}
+			}
 		}
 	}
 

@@ -1,6 +1,9 @@
 #pragma once
 #include <vector>
 #include <libtcod.h>
+#include "entity/FlightEntity.h"
+
+class FlightScene;
 
 enum MapTile
 {
@@ -12,31 +15,12 @@ enum MapTile
 	BASE //< Fatherland base, not derelict station
 };
 
-enum EntityType
-{
-	E_NEST,
-	E_STATION,
-	E_BASE
-};
-
-struct Entity 
-{
-	EntityType type;
-	float x, y;
-
-	Entity(EntityType type, float x, float y)
-	{
-		this->type = type;
-		this->x = x;
-		this->y = y;
-	}
-};
 
 class FlightMap
 {
 public:
 
-	std::vector<Entity> entities;
+	std::vector<FlightEntity*> entities;
 
 	TCODNoise sub_tile_noise;
 
@@ -62,9 +46,9 @@ public:
 
 	MapTile get_subtile(float x, float y);
 
-	std::vector<Entity>& get_entities();
+	std::vector<FlightEntity*>& get_entities();
 
-	FlightMap(int width, int height, size_t seed);
+	FlightMap(int width, int height, size_t seed, FlightScene* scene);
 	~FlightMap();
 };
 

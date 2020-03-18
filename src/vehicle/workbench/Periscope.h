@@ -19,10 +19,6 @@ public:
 	bool blink = false;
 	float blinkt = 0.5f;
 
-	int msg;
-
-	std::vector<std::string> messages;
-
 	TCODConsole console;
 
 	Periscope();

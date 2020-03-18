@@ -43,9 +43,9 @@ void Radio::draw(int rx, int ry)
 	if (Drawing::draw_button(&console, console.getWidth() - 9, console.getHeight() - 5, rx, ry, '>'))
 	{
 		msg++;
-		if (msg > 0)
+		if (msg > messages.size() - 1)
 		{
-			msg = 0;
+			msg = messages.size() - 1;
 		}
 	}
 
@@ -96,7 +96,7 @@ void Radio::push_message(std::string nmsg)
 	// If anybody is on the radio, say new message received
 	if (is_crewed() && !is_open())
 	{
-		get_crewman()->speak("Captain, new radio message");
+		get_crewman()->gc->speak("Captain, new radio message");
 	}
 
 	msg = messages.size() - 1;

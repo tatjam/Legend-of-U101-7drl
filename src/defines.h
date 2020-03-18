@@ -1,6 +1,16 @@
 #pragma once
-#include "soloud.h"
+
 #include "Status.h"
+
+
+
+namespace SoLoud
+{
+	class Soloud;
+}
+
+class Gamemaster;
+class Popup;
 
 #define WIDTH 90
 #define HEIGHT 70
@@ -13,6 +23,9 @@ extern Status* g_status;
 extern TCOD_key_t g_key;
 
 extern TCODRandom* g_random;
+
+extern Gamemaster* g_master;
+extern Popup* g_popup;
 
 enum Direction
 {

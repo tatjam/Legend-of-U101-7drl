@@ -4,6 +4,7 @@
 #include "defines.h"
 
 static SoLoud::Wav* click = nullptr;
+static SoLoud::Wav* four_way = nullptr;
 
 class Drawing
 {
@@ -182,5 +183,108 @@ public:
 		target->setDefaultForeground(TCODColor::white);
 
 		return clicked;
+	}
+
+	// 0 = Top
+	// 1 = Right
+	// 2 = Bottom
+	// 3 = Left
+	// x,y are coordiantes of the four choice thing, not text
+	static bool draw_four_choice(TCODConsole* target, int x, int y, int rx, int ry, int* dir,
+		const std::string& opt_u,
+		const std::string& opt_r,
+		const std::string& opt_d,
+		const std::string& opt_l)
+	{
+		if (four_way == nullptr)
+		{
+			four_way = new SoLoud::Wav();
+			four_way->load("four_way.wav");
+		}
+
+		target->putChar(x + 1, y + 0, 201);
+		target->putChar(x + 2, y + 0, 205);
+		target->putChar(x + 3, y + 0, 187);
+
+		target->putChar(x + 0, y + 1, 201);
+		target->putChar(x + 1, y + 1, 188);
+		target->putChar(x + 3, y + 1, 200);
+		target->putChar(x + 4, y + 1, 187);
+
+		target->putChar(x + 0, y + 2, 186);
+		target->putChar(x + 2, y + 2, 7);
+		target->putChar(x + 4, y + 2, 186);
+
+		target->putChar(x + 0, y + 3, 200);
+		target->putChar(x + 1, y + 3, 187);
+		target->putChar(x + 3, y + 3, 201);
+		target->putChar(x + 4, y + 3, 188);
+
+		target->putChar(x + 1, y + 4, 200);
+		target->putChar(x + 2, y + 4, 205);
+		target->putChar(x + 3, y + 4, 188);
+
+		if (*dir == 0)
+		{
+			target->putChar(x + 2, y + 1, 24);
+		}
+		else if (*dir == 1) 
+		{
+			target->putChar(x + 3, y + 2, 26);
+		}
+		else if (*dir == 2)
+		{
+			target->putChar(x + 2, y + 3, 25);
+		}
+		else
+		{
+			target->putChar(x + 1, y + 2, 27);
+		}
+
+		// Draw texts
+		target->setAlignment(TCOD_CENTER);
+		target->printf(x + 2, y - 1, opt_u.c_str());
+		target->printf(x + 2, y + 5, opt_d.c_str());
+		target->setAlignment(TCOD_RIGHT);
+		target->printf(x - 1, y + 2, opt_l.c_str());
+		target->setAlignment(TCOD_LEFT);
+		target->printf(x + 5, y + 2, opt_r.c_str());
+
+		// Interaction
+		TCOD_mouse_t pos = TCODMouse::getStatus();
+
+		int pos_cx = pos.cx - rx;
+		int pos_cy = pos.cy - ry;
+
+		int old_dir = *dir;
+
+		if (pos.lbutton_pressed)
+		{
+			if (pos_cx == x + 2 && pos_cy == y + 1)
+			{
+				*dir = 0;
+			}
+			else if (pos_cx == x + 3 && pos_cy == y + 2)
+			{
+				*dir = 1;
+			}
+			else if (pos_cx == x + 2 && pos_cy == y + 3)
+			{
+				*dir = 2;
+			}
+			else if (pos_cx == x + 1 && pos_cy == y + 2)
+			{
+				*dir = 3;
+			}
+		}
+
+		if (*dir != old_dir)
+		{
+			// Play sound
+			g_soloud->play(*four_way);
+			return true;
+		}
+
+		return false;
 	}
 };

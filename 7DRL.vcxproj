@@ -116,7 +116,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Programming\libtcod-1.15.1-x86_64-msvc\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Usuario\Source\Repos\7DRL\src\soloud\include;D:\Programming\SDL2\include;D:\Programming\libtcod-1.15.1-x86_64-msvc\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WITH_SDL2;_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -126,13 +127,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Crewmember.cpp" />
+    <ClCompile Include="src\disembark\BuildingMap.cpp" />
+    <ClCompile Include="src\disembark\EmbarkScene.cpp" />
+    <ClCompile Include="src\flight\entity\Monsters.cpp" />
+    <ClCompile Include="src\flight\entity\Buildings.cpp" />
     <ClCompile Include="src\flight\Gamemaster.cpp" />
     <ClCompile Include="src\vehicle\workbench\Battery.cpp" />
     <ClCompile Include="src\vehicle\workbench\Machines.cpp" />
     <ClCompile Include="src\vehicle\workbench\Periscope.cpp" />
     <ClCompile Include="src\vehicle\workbench\Maneouver.cpp" />
-    <ClCompile Include="src\vehicle\workbench\Listening.cpp" />
-    <ClCompile Include="src\vehicle\Crewmember.cpp" />
+    <ClCompile Include="src\vehicle\workbench\Targeting.cpp" />
+    <ClCompile Include="src\vehicle\FlightCrew.cpp" />
     <ClCompile Include="src\vehicle\workbench\Radio.cpp" />
     <ClCompile Include="src\vehicle\workbench\Sonar.cpp" />
     <ClCompile Include="src\flight\FlightMap.cpp" />
@@ -200,6 +206,7 @@
     <ClCompile Include="src\soloud\src\filter\soloud_waveshaperfilter.cpp" />
     <ClCompile Include="src\Status.cpp" />
     <ClCompile Include="src\vehicle\Vehicle.cpp" />
+    <ClCompile Include="src\flight\entity\EntityTorpedo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libtcod.dll" />
@@ -208,14 +215,21 @@
     <None Include="src\soloud\src\c_api\soloud.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Popup.h" />
+    <ClInclude Include="src\Crewmember.h" />
+    <ClInclude Include="src\disembark\EmbarkScene.h" />
+    <ClInclude Include="src\disembark\BuildingMap.h" />
+    <ClInclude Include="src\flight\entity\Monsters.h" />
+    <ClInclude Include="src\flight\entity\Buildings.h" />
+    <ClInclude Include="src\flight\entity\FlightEntity.h" />
     <ClInclude Include="src\flight\Gamemaster.h" />
     <ClInclude Include="src\vehicle\workbench\Battery.h" />
     <ClInclude Include="src\vehicle\workbench\Machines.h" />
     <ClInclude Include="src\vehicle\workbench\Periscope.h" />
     <ClInclude Include="src\vehicle\workbench\Maneouver.h" />
-    <ClInclude Include="src\vehicle\workbench\Listening.h" />
+    <ClInclude Include="src\vehicle\workbench\Targeting.h" />
     <ClInclude Include="src\Speech.h" />
-    <ClInclude Include="src\vehicle\Crewmember.h" />
+    <ClInclude Include="src\vehicle\FlightCrew.h" />
     <ClInclude Include="src\Date.h" />
     <ClInclude Include="src\vehicle\workbench\Radio.h" />
     <ClInclude Include="src\Drawing.h" />
@@ -237,6 +251,7 @@
     <ClInclude Include="src\Status.h" />
     <ClInclude Include="src\vehicle\Vehicle.h" />
     <ClInclude Include="src\vehicle\workbench\Workbench.h" />
+    <ClInclude Include="src\flight\entity\EntityTorpedo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

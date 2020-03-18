@@ -210,16 +210,10 @@
     <ClCompile Include="src\vehicle\Vehicle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\vehicle\Crewmember.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\vehicle\workbench\Sonar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\vehicle\workbench\Radio.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vehicle\workbench\Listening.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\vehicle\workbench\Maneouver.cpp">
@@ -235,6 +229,30 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\flight\Gamemaster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\flight\entity\Buildings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\flight\entity\Monsters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\flight\entity\EntityTorpedo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vehicle\workbench\Targeting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\disembark\EmbarkScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\disembark\BuildingMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vehicle\FlightCrew.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crewmember.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -303,9 +321,6 @@
     <ClInclude Include="src\vehicle\Vehicle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\vehicle\Crewmember.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Speech.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -316,9 +331,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\vehicle\workbench\Radio.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vehicle\workbench\Listening.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\vehicle\workbench\Maneouver.h">
@@ -334,6 +346,36 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\flight\Gamemaster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\flight\entity\Buildings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\flight\entity\FlightEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\flight\entity\Monsters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\flight\entity\EntityTorpedo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vehicle\workbench\Targeting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\disembark\BuildingMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\disembark\EmbarkScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vehicle\FlightCrew.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crewmember.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Popup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

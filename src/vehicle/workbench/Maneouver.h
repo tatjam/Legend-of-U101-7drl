@@ -22,6 +22,7 @@ public:
 
 	bool said;
 	bool said_speed;
+	bool said_max;
 
 	TCODConsole console;
 

@@ -1,5 +1,6 @@
 #include "FlightMap.h"
-
+#include "entity/Buildings.h"
+#include "entity/Monsters.h"
 
 static float grad_func(float x)
 {
@@ -84,12 +85,52 @@ MapTile FlightMap::get_subtile(float x, float y)
 	return tile;
 }
 
-std::vector<Entity>& FlightMap::get_entities()
+std::vector<FlightEntity*>& FlightMap::get_entities()
 {
 	return entities;
 }
 
-FlightMap::FlightMap(int width, int height, size_t seed) : vmap(width, height), sub_tile_noise(2)
+/*
+int FlightMap::get_entity_symbol(EntityType type)
+{
+	switch (type)
+	{
+	case E_NEST: return 15;
+	case E_STATION: return 234;
+	case E_BASE: return 127;
+	case E_CRAWLER: return 157;
+	case E_WORM: return 126;
+	case E_GUARDIAN: return 236;
+	case E_SERPENT: return 21;
+	case E_BOMB: return 155;
+	case E_BITER: return 224;
+	case E_SUBMARINE: return '!';
+	default: return '?';
+	}
+}
+*/
+
+template<typename T, size_t NUM>
+void create_entities(std::vector<FlightEntity*>* target, FlightMap* map, FlightScene* scene)
+{
+	int n = 0;
+	while (n < NUM)
+	{
+		int x = g_random->getInt(0, map->width - 1);
+		int y = g_random->getInt(0, map->height - 1);
+
+		if (map->tiles[y * map->width + x] != WALL)
+		{
+			T* crawler = new T();
+			crawler->set_position((float)x + 0.5f, (float)y + 0.5f);
+			crawler->init(map, scene);
+			target->push_back(crawler);
+			n++;
+		}
+	}
+}
+
+FlightMap::FlightMap(int width, int height, size_t seed, FlightScene* scene) : vmap(width, height), sub_tile_noise(2)
 {
 	this->width = width;
 	this->height = height;
@@ -105,11 +146,10 @@ FlightMap::FlightMap(int width, int height, size_t seed) : vmap(width, height), 
 		}
 	}
 
-	TCODRandom rng = TCODRandom(seed);
 
 	int dx = width / 2, dy = height / 2;
 	int open = 0;
-	int target_open = rng.getFloat(0.3, 0.5) * width * height;
+	int target_open = g_random->getFloat(0.3, 0.5) * width * height;
 	int max_steps = 100000;
 	int steps = 0;
 
@@ -121,9 +161,9 @@ FlightMap::FlightMap(int width, int height, size_t seed) : vmap(width, height), 
 			open++;
 		}
 
-		if (rng.getFloat(0.0, 1.0) >= 0.5)
+		if (g_random->getFloat(0.0, 1.0) >= 0.5)
 		{
-			if (rng.getFloat(0.0, 1.0) >= 0.5)
+			if (g_random->getFloat(0.0, 1.0) >= 0.5)
 			{
 				dx++;
 			}
@@ -134,7 +174,7 @@ FlightMap::FlightMap(int width, int height, size_t seed) : vmap(width, height), 
 		}
 		else
 		{
-			if (rng.getFloat(0.0, 1.0) >= 0.5)
+			if (g_random->getFloat(0.0, 1.0) >= 0.5)
 			{
 				dy++;
 			}
@@ -180,7 +220,7 @@ FlightMap::FlightMap(int width, int height, size_t seed) : vmap(width, height), 
 		}
 	}
 
-	TCODNoise noise = TCODNoise(2, TCOD_NOISE_PERLIN);
+	TCODNoise noise = TCODNoise(2, g_random, TCOD_NOISE_PERLIN);
 
 	// Generate air map
 	for (int x = 0; x < width; x++)
@@ -200,11 +240,11 @@ FlightMap::FlightMap(int width, int height, size_t seed) : vmap(width, height), 
 
 	int stations = 0;
 
-	while (stations < 4)
+	while (stations < 3)
 	{
 		// Place stations far away from the center
-		int x = rng.getInt(0, width - 1);
-		int y = rng.getInt(0, height - 1);
+		int x = g_random->getInt(0, width - 1);
+		int y = g_random->getInt(0, height - 1);
 
 		float xf = (float)(x - width / 2) / (float)(width / 2);
 		float yf = (float)(y - height / 2) / (float)(height / 2);
@@ -215,7 +255,10 @@ FlightMap::FlightMap(int width, int height, size_t seed) : vmap(width, height), 
 		{
 			tiles[y * width + x] = STATION;
 			stations++;
-			entities.push_back(Entity(E_STATION, (float)x + 0.5f, (float)x + 0.5f));
+			EntityStation* n = new EntityStation();
+			n->set_position((float)x + 0.5f, (float)y + 0.5f);
+			n->init(this, scene);
+			entities.push_back(n);
 		}
 		
 	}
@@ -226,14 +269,17 @@ FlightMap::FlightMap(int width, int height, size_t seed) : vmap(width, height), 
 	while (nests < 15)
 	{
 		// Place stations far away from the center
-		int x = rng.getInt(0, width - 1);
-		int y = rng.getInt(0, height - 1);
+		int x = g_random->getInt(0, width - 1);
+		int y = g_random->getInt(0, height - 1);
 
 		if (tiles[y * width + x] != WALL)
 		{
 			tiles[y * width + x] = NEST;
 			nests++;
-			entities.push_back(Entity(E_NEST, (float)x + 0.5f, (float)x + 0.5f));
+			EntityNest* n = new EntityNest();
+			n->set_position((float)x + 0.5f, (float)y + 0.5f);
+			n->init(this, scene);
+			entities.push_back(n);
 		}
 
 	}
@@ -243,15 +289,18 @@ FlightMap::FlightMap(int width, int height, size_t seed) : vmap(width, height), 
 	while (bases < 5)
 	{
 		// Place stations far away from the center
-		int x = rng.getInt(0, width - 1);
-		int y = rng.getInt(0, height - 1);
+		int x = g_random->getInt(0, width - 1);
+		int y = g_random->getInt(0, height - 1);
 
 		if (tiles[y * width + x] != WALL)
 		{
 			tiles[y * width + x] = BASE;
 			bases++;
 			lbases.push_back(std::make_pair(x, y));
-			entities.push_back(Entity(E_BASE, (float)x + 0.5f, (float)x + 0.5f));
+			EntityBase* n = new EntityBase();
+			n->set_position((float)x + 0.5f, (float)y + 0.5f);
+			n->init(this, scene);
+			entities.push_back(n);
 		}
 
 	}
@@ -259,9 +308,63 @@ FlightMap::FlightMap(int width, int height, size_t seed) : vmap(width, height), 
 
 	tiles[(height / 2) * height + (width / 2)] = BASE;
 	lbases.push_back(std::make_pair(width / 2, height / 2));
-	entities.push_back(Entity(E_BASE, (float)(width / 2) + 0.5f, (float)(height / 2) + 0.5f));
+	EntityBase* n = new EntityBase();
+	n->set_position((float)(width / 2) + 0.5f, (float)(height / 2) + 0.5f);
+	n->init(this, scene);
+	entities.push_back(n);
 
-	// Create all default entities
+	// Spawn some entities across the map
+	if (width > 20)
+	{
+		create_entities<EntityCrawler, 10>(&entities, this, scene);
+		create_entities<EntityWorm, 10>(&entities, this, scene);
+		create_entities<EntitySerpent, 4>(&entities, this, scene);
+	}
+
+
+	for (FlightEntity* ent : entities) 
+	{
+		if (ent->get_type() == E_NEST)
+		{
+			// Spawn a guardian near it
+			int guardians = g_random->getInt(-1, 2);
+			int g = 0;
+			while (g < guardians)
+			{
+				// Place stations far away from the center
+				float ox = g_random->getFloat(-3.0f, 3.0f);
+				float oy = g_random->getInt(-3.0f, 3.0f);
+
+				ox += ent->get_x();
+				oy += ent->get_y();
+
+				if (get_tile((int)floor(ox), (int)floor(oy)) != WALL)
+				{
+					EntityGuardian* ent = new EntityGuardian();
+					ent->init(this, scene);
+					ent->set_position(ox, oy);
+					entities.push_back(ent);
+
+					g++;
+				}
+
+			}
+		}
+	}
+
+	/*
+	REMEMBER TO ADD SOUND!!!
+	EntityBomb* ent = new EntityBomb();
+	ent->init(this, scene);
+	ent->set_position(51.0f, 50.5f);
+	entities.push_back(ent);*/
+
+	/*EntitySerpent* ent = new EntitySerpent();
+	ent->init(this, scene);
+	ent->set_position(51.0f, 50.5f);
+	entities.push_back(ent);
+	*/
+
 }
 
 FlightMap::~FlightMap()

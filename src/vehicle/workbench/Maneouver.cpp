@@ -47,7 +47,7 @@ bool Maneouver::update(float dt)
 		{
 			if (is_crewed())
 			{
-				get_crewman()->speak(Speech::speed_done());
+				get_crewman()->gc->speak(Speech::speed_done());
 			}
 
 			said_speed = true;
@@ -76,7 +76,7 @@ bool Maneouver::update(float dt)
 		{
 			if (is_crewed())
 			{
-				get_crewman()->speak(Speech::heading_done());
+				get_crewman()->gc->speak(Speech::heading_done());
 			}
 
 			said = true;
@@ -97,8 +97,34 @@ bool Maneouver::update(float dt)
 		}
 
 
-		get_vehicle()->angle = real_vehicle + dir * dt * 1.0f;
+		float possible_maneouver = 1.0f - get_vehicle()->water_level / 50.0f;
+		if (possible_maneouver < 0.2f) 
+		{
+			possible_maneouver = 0.2f;
+		}
 
+		get_vehicle()->angle = real_vehicle + dir * dt * 0.7f * possible_maneouver;
+
+	}
+
+	if (get_vehicle()->velocity > get_vehicle()->possible_speed && wanted_velocity > get_vehicle()->possible_speed
+		&& get_vehicle()->velocity != 0.0)
+	{
+		get_vehicle()->velocity = get_vehicle()->possible_speed + 0.0000001f;
+
+		if (!said_max)
+		{
+			if (is_crewed())
+			{
+				get_crewman()->gc->speak("Engine power too low!");
+				said_max = true;
+			}
+
+		}
+	}
+	else 
+	{
+		said_max = false;
 	}
 
 	return false;
