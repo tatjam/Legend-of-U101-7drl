@@ -46,6 +46,12 @@ libtcod.h
 Status.h
 /home/tatjam/code/u101/src/Status.h
 
+/home/tatjam/code/u101/src/disembark/BuildingMap.h
+libtcod.hpp
+-
+../defines.h
+/home/tatjam/code/u101/src/defines.h
+
 /home/tatjam/code/u101/src/flight/FlightMap.h
 vector
 -
@@ -53,6 +59,12 @@ libtcod.h
 -
 entity/FlightEntity.h
 /home/tatjam/code/u101/src/flight/entity/FlightEntity.h
+
+/home/tatjam/code/u101/src/flight/FlightScene.cpp
+FlightScene.h
+/home/tatjam/code/u101/src/flight/FlightScene.h
+entity/Buildings.h
+/home/tatjam/code/u101/src/flight/entity/Buildings.h
 
 /home/tatjam/code/u101/src/flight/FlightScene.h
 libtcod.h
@@ -74,9 +86,11 @@ soloud_wav.h
 ../vehicle/Vehicle.h
 /home/tatjam/code/u101/src/vehicle/Vehicle.h
 
-/home/tatjam/code/u101/src/flight/entity/EntityTorpedo.h
+/home/tatjam/code/u101/src/flight/entity/Buildings.h
 FlightEntity.h
 /home/tatjam/code/u101/src/flight/entity/FlightEntity.h
+../../disembark/BuildingMap.h
+/home/tatjam/code/u101/src/disembark/BuildingMap.h
 
 /home/tatjam/code/u101/src/flight/entity/FlightEntity.h
 ../../defines.h
@@ -214,16 +228,6 @@ soloud_wav.h
 Workbench.h
 /home/tatjam/code/u101/src/vehicle/workbench/Workbench.h
 
-/home/tatjam/code/u101/src/vehicle/workbench/Targeting.cpp
-Targeting.h
-/home/tatjam/code/u101/src/vehicle/workbench/Targeting.h
-../../flight/entity/EntityTorpedo.h
-/home/tatjam/code/u101/src/flight/entity/EntityTorpedo.h
-../Vehicle.h
-/home/tatjam/code/u101/src/vehicle/Vehicle.h
-../../flight/FlightScene.h
-/home/tatjam/code/u101/src/flight/FlightScene.h
-
 /home/tatjam/code/u101/src/vehicle/workbench/Targeting.h
 string
 -
@@ -251,6 +255,10 @@ stack
 libtcod/src/libtcod.h
 libtcod/libtcod.h
 libtcod/src/libtcod/libtcod.h
+
+libtcod/src/libtcod.hpp
+libtcod.h
+libtcod/src/libtcod.h
 
 libtcod/src/libtcod/bresenham.h
 portability.h

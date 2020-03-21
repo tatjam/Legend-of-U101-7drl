@@ -163,8 +163,9 @@ We are now going to send the location of all our outposts.\n";
 			}
 		}
 		/*if (ent->get_type() == E_NEST && !((Building*)ent)->is_explored())
-		{
+		{		
 			possible_embark = ent;
+			break;
 		}*/
 	}
 

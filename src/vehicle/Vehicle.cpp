@@ -578,6 +578,11 @@ void Vehicle::update(float dt)
 		}
 	}
 
+	if(workbench_open != nullptr && g_key.vk == TCODK_ESCAPE)
+	{
+		workbench_open = nullptr;
+	}
+
 	auto old = get_tile();
 	bool was_breathing = breathing;
 	
@@ -852,7 +857,7 @@ void Vehicle::draw(TCODConsole* target, int ox, int oy)
 		selected = nullptr;
 	}
 
-	if (!workbench_open)
+	if (workbench_open == nullptr)
 	{
 		for (int i = 0; i < workbenches.size(); i++)
 		{

@@ -21,7 +21,9 @@ Battery::Battery() : console(50, 50)
 	bb_to_aux = false;
 	ba_to_eng = false;
 	bb_to_eng = false;
-
+	aux_to_a = false;
+	aux_to_b = false;
+	aux_to_eng = false;	
 }
 
 
