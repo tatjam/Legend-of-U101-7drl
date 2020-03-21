@@ -374,8 +374,14 @@ void Vehicle::do_context_menu(TCODConsole* target, int ox, int oy, TCOD_mouse_t 
 		}
 	}
 
-	if (in_context_menu)
+	if (in_context_menu && selected)
 	{
+		if (ctx_x < 0 || ctx_x >= width || ctx_y < 0 || ctx_y >= height)
+		{
+			ctx_x = 0;
+			ctx_y = 0;
+		}
+
 		int rx = ctx_x + ox;
 		int ry = ctx_y + oy;
 
@@ -568,7 +574,7 @@ void Vehicle::update(float dt)
 		if (workbenches[i]->update(dt))
 		{
 			workbenches[i]->close();
-			workbench_open = false;
+			workbench_open = nullptr;
 		}
 	}
 
@@ -892,7 +898,7 @@ void Vehicle::draw(TCODConsole* target, int ox, int oy)
 
 void Vehicle::draw_window(TCODConsole* target)
 {
-	if (workbench_open)
+	if (workbench_open != nullptr)
 	{
 		int x0 = (TCODConsole::root->getWidth() - workbench_open->get_size().first) / 2;
 		int y0 = (TCODConsole::root->getHeight() - workbench_open->get_size().second) / 2;
@@ -1096,6 +1102,13 @@ Vehicle::Vehicle(FlightMap* map)
 
 	selected = nullptr;
 	breathing = false;
+	workbench_open = nullptr;
+
+	water_level = 0.0f;
+	water_flow = 0.0f;
+	noise = 0.0f;
+	possible_speed = 0.0f;
+		
 
 	while (bubbles.size() <= 50)
 	{

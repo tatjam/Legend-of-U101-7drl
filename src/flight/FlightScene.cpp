@@ -146,13 +146,17 @@ We are now going to send the location of all our outposts.\n";
 
 	for (FlightEntity* ent : map.entities)
 	{
+		possible_embark = nullptr;
+
 		if (ent->get_type() == E_NEST || ent->get_type() == E_STATION)
 		{
 			float dx = vehicle.x - ent->get_x();
 			float dy = vehicle.y - ent->get_y();
 			float dist = sqrt(dx * dx + dy * dy);
 
-			if (dist < 0.2f && !((Building*)ent)->is_explored())
+			bool is_explored = ((Building*)ent)->is_explored();
+
+			if (dist < 0.2f && !is_explored)
 			{
 				possible_embark = ent;
 				break;

@@ -24,7 +24,9 @@ void Gamemaster::update(float dt)
 
 		if (embark_scene->finished)
 		{
-			if (g_master->clear_nest_count == 2 && g_master->clear_station_count == 0)
+			flight_scene->embark_target = nullptr;
+
+			if (g_master->clear_nest_count == 2)
 			{
 				std::string coords = "";
 				for (FlightEntity* ent : g_master->flight_scene->map.entities)
@@ -248,6 +250,19 @@ void Gamemaster::init()
 	{
 		crew.push_back(flight_scene->vehicle.crew[i].gc);
 	}
+
+	std::string coords = "";
+	for (FlightEntity* ent : g_master->flight_scene->map.entities)
+	{
+		if (ent->get_type() == E_STATION && !((Building*)ent)->is_explored())
+		{
+			coords += std::to_string((int)floor(ent->get_x()));
+			coords += ", ";
+			coords += std::to_string((int)floor(ent->get_x()));
+			break;
+		}
+	}
+
 }
 
 Gamemaster::Gamemaster()

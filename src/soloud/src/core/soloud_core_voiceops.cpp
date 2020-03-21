@@ -120,6 +120,10 @@ namespace SoLoud
 		mActiveVoiceDirty = true;
 		if (mVoice[aVoice])
 		{
+			if(mResampleDataOwner == NULL)
+			{
+				return;
+			}
 			// Delete via temporary variable to avoid recursion
 			AudioSourceInstance * v = mVoice[aVoice];
 			mVoice[aVoice] = 0;
