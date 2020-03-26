@@ -32,6 +32,10 @@ string
 unordered_map
 -
 
+/home/tatjam/code/u101/src/Popup.h
+Drawing.h
+/home/tatjam/code/u101/src/Drawing.h
+
 /home/tatjam/code/u101/src/Speech.h
 string
 -
@@ -52,6 +56,20 @@ libtcod.hpp
 ../defines.h
 /home/tatjam/code/u101/src/defines.h
 
+/home/tatjam/code/u101/src/disembark/EmbarkScene.h
+BuildingMap.h
+/home/tatjam/code/u101/src/disembark/BuildingMap.h
+../Crewmember.h
+/home/tatjam/code/u101/src/Crewmember.h
+
+/home/tatjam/code/u101/src/flight/FlightMap.cpp
+FlightMap.h
+/home/tatjam/code/u101/src/flight/FlightMap.h
+entity/Buildings.h
+/home/tatjam/code/u101/src/flight/entity/Buildings.h
+entity/Monsters.h
+/home/tatjam/code/u101/src/flight/entity/Monsters.h
+
 /home/tatjam/code/u101/src/flight/FlightMap.h
 vector
 -
@@ -59,12 +77,6 @@ libtcod.h
 -
 entity/FlightEntity.h
 /home/tatjam/code/u101/src/flight/entity/FlightEntity.h
-
-/home/tatjam/code/u101/src/flight/FlightScene.cpp
-FlightScene.h
-/home/tatjam/code/u101/src/flight/FlightScene.h
-entity/Buildings.h
-/home/tatjam/code/u101/src/flight/entity/Buildings.h
 
 /home/tatjam/code/u101/src/flight/FlightScene.h
 libtcod.h
@@ -86,6 +98,22 @@ soloud_wav.h
 ../vehicle/Vehicle.h
 /home/tatjam/code/u101/src/vehicle/Vehicle.h
 
+/home/tatjam/code/u101/src/flight/Gamemaster.cpp
+Gamemaster.h
+/home/tatjam/code/u101/src/flight/Gamemaster.h
+FlightScene.h
+/home/tatjam/code/u101/src/flight/FlightScene.h
+../disembark/EmbarkScene.h
+/home/tatjam/code/u101/src/disembark/EmbarkScene.h
+entity/Buildings.h
+/home/tatjam/code/u101/src/flight/entity/Buildings.h
+
+/home/tatjam/code/u101/src/flight/Gamemaster.h
+../vehicle/Vehicle.h
+/home/tatjam/code/u101/src/vehicle/Vehicle.h
+../Popup.h
+/home/tatjam/code/u101/src/Popup.h
+
 /home/tatjam/code/u101/src/flight/entity/Buildings.h
 FlightEntity.h
 /home/tatjam/code/u101/src/flight/entity/FlightEntity.h
@@ -96,6 +124,12 @@ FlightEntity.h
 ../../defines.h
 /home/tatjam/code/u101/src/defines.h
 tuple
+-
+
+/home/tatjam/code/u101/src/flight/entity/Monsters.h
+FlightEntity.h
+/home/tatjam/code/u101/src/flight/entity/FlightEntity.h
+soloud_wav.h
 -
 
 /home/tatjam/code/u101/src/vehicle/FlightCrew.h
