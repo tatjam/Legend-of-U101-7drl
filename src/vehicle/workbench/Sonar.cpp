@@ -349,6 +349,7 @@ Sonar::Sonar(SoLoud::Soloud * soloud) : console(49, 56)
 	ping.load("ping.wav");
 	blink = true;
 	blinkt = 0.5f;
+	sonar_active = false;
 }
 
 Sonar::~Sonar()

@@ -138,6 +138,11 @@ void EntityWorm::update(float dt)
 
 void Monster::path_to(int x, int y)
 {
+	if(x < 0){ x = 0; }
+	if(y < 0){ y = 0; }
+	if(x >= get_map()->width){ x = get_map()->width - 1; }	
+	if(y >= get_map()->height){ y = get_map()->height - 1; }
+	
 	if (current_path != nullptr)
 	{
 		int dx, dy;

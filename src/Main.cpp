@@ -23,7 +23,7 @@ int main(int argc, char** argv)
 {
 
 	TCODConsole::setCustomFont("rc11.png", TCOD_FONT_LAYOUT_ASCII_INROW);
-	TCODConsole::initRoot(WIDTH, HEIGHT, "The Legend of U-101", false, TCOD_RENDERER_GLSL);
+	TCODConsole::initRoot(WIDTH, HEIGHT, "The Legend of U-101", false, TCOD_RENDERER_SDL);
 
 	g_soloud = new SoLoud::Soloud;
 	g_soloud->init();

@@ -39,6 +39,7 @@ void EmbarkScene::update_entity(float dt, EmbarkMonster* monster)
 			{
 				if (is_free_crew(nx, ny))
 				{
+
 					monster->x = nx;
 					monster->y = ny;
 				}
@@ -826,6 +827,8 @@ bool EmbarkScene::is_free_crew(int x, int y)
 			return false;
 		}
 	}
+
+	return true;
 }
 
 void EmbarkScene::restart()
@@ -870,6 +873,8 @@ EmbarkMonster::EmbarkMonster(MonsterType type, TCODMap* map)
 {
 	path = new TCODPath(map, 0.0f);
 
+	x = 0;
+	y = 0;
 	this->seen = false;
 	this->type = type;
 	this->walkt = 0.0f;

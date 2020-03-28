@@ -52,6 +52,8 @@ Targeting::Targeting() : console(50, 50)
 
 	identify = nullptr;
 	identify_timer = 0.0f;
+	firing = false;
+	said = false;
 }
 
 

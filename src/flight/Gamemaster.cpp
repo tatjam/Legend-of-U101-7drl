@@ -35,7 +35,7 @@ void Gamemaster::update(float dt)
 					{
 						coords += std::to_string((int)floor(ent->get_x()));
 						coords += ", ";
-						coords += std::to_string((int)floor(ent->get_x()));
+						coords += std::to_string((int)floor(ent->get_y()));
 						break;
 					}
 				}

@@ -240,7 +240,7 @@ FlightMap::FlightMap(int width, int height, size_t seed, FlightScene* scene) : v
 
 	int stations = 0;
 
-	while (stations < 3)
+	while (stations < 40)
 	{
 		// Place stations far away from the center
 		int x = g_random->getInt(0, width - 1);
@@ -251,7 +251,7 @@ FlightMap::FlightMap(int width, int height, size_t seed, FlightScene* scene) : v
 
 		float dist = sqrt(xf * xf + yf * yf);
 
-		if (dist >= 0.7f && tiles[y * width + x] != WALL)
+		if (dist >= 0.7f && tiles[y * width + x] != WALL)	
 		{
 			tiles[y * width + x] = STATION;
 			stations++;
@@ -259,6 +259,7 @@ FlightMap::FlightMap(int width, int height, size_t seed, FlightScene* scene) : v
 			n->set_position((float)x + 0.5f, (float)y + 0.5f);
 			n->init(this, scene);
 			entities.push_back(n);
+			//printf("Put station at: %i, %i\n", x, y);
 		}
 		
 	}

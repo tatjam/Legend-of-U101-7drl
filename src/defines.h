@@ -47,3 +47,13 @@ enum Speed
 	FAST,
 	FULL
 };
+
+static float min(float a, float b)
+{
+	return a > b ? b : a;
+}
+
+static float max(float a, float b)
+{
+	return a > b ? a : b;
+}
