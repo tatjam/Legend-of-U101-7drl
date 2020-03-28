@@ -153,15 +153,26 @@ public:
 	}
 
 	// Single letter hold button
-	static bool draw_button(TCODConsole* target, int x0, int y0, int rx, int ry, int ch)
+	static bool draw_button(TCODConsole* target, int x0, int y0, int rx, int ry, int ch, bool one_click = false)
 	{
 		TCOD_mouse_t pos = TCODMouse::getStatus();
 
 		int w = 2;
 		int h = 2;
 
+
 		bool clicked = false;
-		if (pos.cx - rx >= x0 && pos.cx - rx <= x0 + w && pos.cy - ry >= y0 && pos.cy - ry <= y0 + h && pos.lbutton)
+		bool button = false;
+		if (one_click)
+		{
+			button = pos.lbutton_pressed;
+		}
+		else
+		{
+			button = pos.lbutton;
+		}
+
+		if (pos.cx - rx >= x0 && pos.cx - rx <= x0 + w && pos.cy - ry >= y0 && pos.cy - ry <= y0 + h && button)
 		{
 			clicked = true;
 		}

@@ -392,6 +392,10 @@ void EmbarkScene::update_crew(float dt, EmbarkCrew* crew)
 			}
 		}
 	}
+	else
+	{
+		crew->fired_timer = 0.0f;
+	}
 }
 
 void EmbarkScene::update(float dt)

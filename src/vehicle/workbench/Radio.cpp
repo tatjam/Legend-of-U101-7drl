@@ -26,12 +26,12 @@ void Radio::draw(int rx, int ry)
 		}
 	}
 
-	if (Drawing::draw_button(&console, 1, console.getHeight() - 5, rx, ry, 174))
+	if (Drawing::draw_button(&console, 1, console.getHeight() - 5, rx, ry, 174, true))
 	{
 		msg = 0;
 	}
 
-	if (Drawing::draw_button(&console, 4, console.getHeight() - 5, rx, ry, '<'))
+	if (Drawing::draw_button(&console, 4, console.getHeight() - 5, rx, ry, '<', true))
 	{
 		msg--;
 		if (msg < 0)
@@ -40,7 +40,7 @@ void Radio::draw(int rx, int ry)
 		}
 	}
 
-	if (Drawing::draw_button(&console, console.getWidth() - 9, console.getHeight() - 5, rx, ry, '>'))
+	if (Drawing::draw_button(&console, console.getWidth() - 9, console.getHeight() - 5, rx, ry, '>', true))
 	{
 		msg++;
 		if (msg > messages.size() - 1)
@@ -49,7 +49,7 @@ void Radio::draw(int rx, int ry)
 		}
 	}
 
-	if (Drawing::draw_button(&console, console.getWidth() - 6, console.getHeight() - 5, rx, ry, 175))
+	if (Drawing::draw_button(&console, console.getWidth() - 6, console.getHeight() - 5, rx, ry, 175, true))
 	{
 		msg = messages.size() - 1;
 		if (msg < 0)
